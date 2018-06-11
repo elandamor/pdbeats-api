@@ -1,0 +1,26 @@
+# import Song from "./generated/prisma.graphql"
+
+input AlbumInputPayload {
+  alias: String!
+  name: String
+}
+
+input ArtistInputPayload {
+  alias: String!
+  name: String
+}
+
+input SongInputPayload {
+  album: AlbumInputPayload
+  artist: ArtistInputPayload
+  featuring: ArtistInputPayload
+  title: String!
+}
+
+type Query {
+  music: [Song!]!
+}
+
+type Mutation {
+  createSong(input: SongInputPayload!): Song
+}

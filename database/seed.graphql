@@ -1,0 +1,8 @@
+mutation {
+  first: createSong(data: {
+    artist: "Avicci",
+    title: "Levels",
+  }) {
+    id
+  }
+}
