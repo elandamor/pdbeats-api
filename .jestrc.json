@@ -1,0 +1,20 @@
+{
+  "transform": {
+    "^.+\\.ts?$": "ts-jest"
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js?|ts?)$",
+  "moduleFileExtensions": ["ts", "js", "node"],
+  "testEnvironment": "node",
+  "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/generated/prisma.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 98,
+        "branches": 91,
+        "functions": 98,
+        "lines": 98
+      }
+    }
+}
