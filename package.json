@@ -1,10 +1,8 @@
 {
   "name": "pdprisma-ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "dev": "npm-run-all --parallel start playground",
-    "playground": "graphql playground"
     "test": "jest --config=.jestrc.json --verbose",
     "playground": "graphql playground",
     "generate": "plop --plopfile internals/generators/index.js"
@@ -12,6 +10,7 @@
   "dependencies": {
     "graphql-import": "0.6.0",
     "graphql-yoga": "1.14.7",
+    "merge-graphql-schemas": "^1.5.1",
     "prisma-binding": "2.0.2"
   },
   "devDependencies": {
