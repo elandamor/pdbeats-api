@@ -1,16 +1,20 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from './generated/prisma';
 import * as schema from './schema';
+import { makeDebugger } from './lib';
 
+const debug = makeDebugger('API');
 const server = new GraphQLServer({
   ...schema,
-  context: req => ({
+  context: (req) => ({
     ...req,
     db: new Prisma({
-      endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma API
-      debug: Boolean(process.env.NODE_ENV === 'production'), // log all GraphQL queries & mutations sent to the Prisma API
+      debug: Boolean(process.env.NODE_ENV === 'production'),
+      endpoint: process.env.PRISMA_ENDPOINT,
       // secret: 'mysecret123', // only needed if specified in `database/prisma.yml`
     }),
+    debug,
   }),
-})
-server.start(() => console.log('Server is running on http://localhost:4000'))
+});
+
+server.start(() => debug('Server is running on http://localhost:4000'));

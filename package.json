@@ -15,8 +15,10 @@
     "prisma-binding": "2.0.2"
   },
   "devDependencies": {
+    "@types/debug": "^0.0.30",
     "@types/jest": "^23.0.0",
     "@types/lodash": "^4.14.109",
+    "debug": "^3.1.0",
     "dotenv-cli": "1.4.0",
     "graphql-cli": "2.16.1",
     "jest": "^23.1.0",
