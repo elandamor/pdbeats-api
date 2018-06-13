@@ -1,13 +1,13 @@
 import { Context } from '../../utils';
 
 export class {{properCase name}}Service {
-    create(input, context: Context, info) {
+    public create(input, context: Context, info) {
         return context.db.mutation.create{{properCase name}}({
             data: { ...input }
         }, info);
     }
 
-    async edit(input, context: Context, info) {
+    public async edit(input, context: Context, info) {
         const { id, name } = input;
         const {{ name }}Exists = await context.db.exists.{{properCase name}}({ id });
 
@@ -21,7 +21,7 @@ export class {{properCase name}}Service {
         }, info);
     }
 
-    async delete(id , context: Context) {
+    public async delete(id , context: Context) {
       const {{ name }}Exists = await context.db.exists.{{ properCase name }}({ id });
   
       if (!{{ name }}Exists) {
@@ -31,18 +31,21 @@ export class {{properCase name}}Service {
       return context.db.mutation.delete{{ properCase name }}({ where: { id } });
     }
 
-    findOne(id, context: Context, info) {
+    public findOne(id, context: Context, info) {
         return context.db.query.{{ name }}({ where: { id } }, info);
     }
 
-    findMany(input, context: Context, info) {
+    public findMany(input, context: Context, info) {
         const { first, last, after, before } = input;
-        return context.db.query.{{ name }}sConnection({
-            first,
-            last,
+        return context.db.query.{{name}}sConnection(
+          {
             after,
             before,
-            orderBy: 'createdAt_DESC'
-        }, info);
+            first,
+            last,
+            orderBy: 'createdAt_DESC',
+          },
+          info,
+        );
     }
 }
