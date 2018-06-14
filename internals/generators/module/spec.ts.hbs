@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request';
-import * as ip from 'ip';
 import { {{ properCase name }}Connection } from '../../generated/prisma';
 
 const client = new GraphQLClient('http://localhost:4000');
@@ -18,9 +17,15 @@ const {{ constantCase name }}S_QUERY = `
     }
 `;
 
+interface I{{ properCase name }} {
+  music: {
+    edges: {{ properCase name }}Connection;
+  };
+}
+
 describe('Error check {{ name }} queries', () => {
-    test('{{ name }}s should return empty array', async () => {
-        const { {{ name }}s: { edges } } = await client.request<{{ name }}s: {{ properCase name }}Connection}>({{ constantCase name }}S_QUERY);
-        expect(edges).toHaveLength(0)
-    });
-})
+  test('{{ name }}s should be defined', async () => {
+    const {{ name }}s = await client.request<I{{ properCase name }}>({{ constantCase name }}S_QUERY);
+    expect({{ name }}s).toBeDefined();
+  });
+});

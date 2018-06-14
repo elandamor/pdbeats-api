@@ -12,14 +12,14 @@ const pubsub = new PubSub();
 const service = new {{ properCase name }}Service();
 
 export default {
-  Query: {
-    {{name}}s: (_, { input }, context: Context, info) => service.findMany(input, context, info),
-    {{name}}: (_, { id }, context: Context, info) => service.findOne(id, context, info)
-  },
   Mutation: {
-    add{{properCase name}}: (_, { input }, context: Context, info) => service.create(input, context, info),
-    edit{{properCase name}}: (_, { input }, context: Context, info) => service.edit(input, context, info),
-    delete{{properCase name}}: (_, { id }, context: Context) => service.delete(id, context)
+    add{{properCase name}}: ({ input }, context: Context, info) => service.create(input, context, info),
+    delete{{properCase name}}: ({ id }, context: Context) => service.delete(id, context),
+    edit{{properCase name}}: ({ input }, context: Context, info) => service.edit(input, context, info),
+  },
+  Query: {
+    {{name}}: ({ id }, context: Context, info) => service.findOne(id, context, info),
+    {{name}}s: ({ input }, context: Context, info) => service.findMany(input, context, info),
   },
   Subscription: {
     {{name}}: () => pubsub.asyncIterator('{{constantCase name}}_CREATED')

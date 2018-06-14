@@ -1,51 +1,57 @@
 import { Context } from '../../utils';
 
-export class {{properCase name}}Service {
-    public create(input, context: Context, info) {
-        return context.db.mutation.create{{properCase name}}({
-            data: { ...input }
-        }, info);
+export class {{ properCase name }}Service {
+  public async create(input, context: Context, info) {
+    return context.db.mutation.create{{ properCase name }}(
+      {
+        data: { ...input },
+      },
+      info,
+    );
+  }
+
+  public async edit(input, context: Context, info) {
+    const { id, name } = input;
+    const {{ name }}Exists = await context.db.exists.{{ properCase name }}({ id });
+
+    if (!{{ name }}Exists) {
+      throw new Error('{{ properCase name }} not found');
     }
 
-    public async edit(input, context: Context, info) {
-        const { id, name } = input;
-        const {{ name }}Exists = await context.db.exists.{{properCase name}}({ id });
+    return context.db.mutation.update{{ properCase name }}(
+      {
+        data: { name },
+        where: { id },
+      },
+      info,
+    );
+  }
 
-        if (!{{ name }}Exists) {
-          throw new Error("{{properCase name}} not found");
-        }
-    
-        return context.db.mutation.update{{properCase name}}({
-            where: { id },
-            data: { name }
-        }, info);
+  public async delete(id, context: Context) {
+    const {{ name }}Exists = await context.db.exists.{{ properCase name }}({ id });
+
+    if (!{{ name }}Exists) {
+      throw new Error(`{{ properCase name }} not found or you're not authorized to perform action`);
     }
 
-    public async delete(id , context: Context) {
-      const {{ name }}Exists = await context.db.exists.{{ properCase name }}({ id });
-  
-      if (!{{ name }}Exists) {
-        throw new Error(`{{ properCase name }} not found or you're not authorized to perform action`);
-      }
-  
-      return context.db.mutation.delete{{ properCase name }}({ where: { id } });
-    }
+    return context.db.mutation.delete{{ properCase name }}({ where: { id } });
+  }
 
-    public findOne(id, context: Context, info) {
-        return context.db.query.{{ name }}({ where: { id } }, info);
-    }
+  public findOne(id, context: Context, info) {
+    return context.db.query.{{ name }}({ where: { id } }, info);
+  }
 
-    public findMany(input, context: Context, info) {
-        const { first, last, after, before } = input;
-        return context.db.query.{{name}}sConnection(
-          {
-            after,
-            before,
-            first,
-            last,
-            orderBy: 'createdAt_DESC',
-          },
-          info,
-        );
-    }
+  public findMany(input, context: Context, info) {
+    const { first, last, after, before } = input;
+    return context.db.query.{{ name }}sConnection(
+      {
+        after,
+        before,
+        first,
+        last,
+        orderBy: 'createdAt_DESC',
+      },
+      info,
+    );
+  }
 }
