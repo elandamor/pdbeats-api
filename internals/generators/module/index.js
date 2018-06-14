@@ -25,7 +25,7 @@ module.exports = {
       },
     },
   ],
-  actions: (data) => {
+  actions: () => {
     // Generate index.js, index.test.js and styles.js.
     const actions = [
       {
