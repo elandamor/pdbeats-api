@@ -17,9 +17,15 @@ const ALBUMS_QUERY = `
     }
 `;
 
+interface IAlbum {
+  music: {
+    edges: AlbumConnection;
+  };
+}
+
 describe('Error check album queries', () => {
   test('albums should be defined', async () => {
-    const albums = await client.request<AlbumConnection>(ALBUMS_QUERY);
+    const albums = await client.request<IAlbum>(ALBUMS_QUERY);
     expect(albums).toBeDefined();
   });
 });
