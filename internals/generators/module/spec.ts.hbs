@@ -1,0 +1,31 @@
+import { GraphQLClient } from 'graphql-request';
+import { {{ properCase name }}Connection } from '../../generated/prisma';
+
+const client = new GraphQLClient('http://localhost:4000');
+jest.setTimeout(50000);
+
+const {{ constantCase name }}S_QUERY = `
+    query {{ name }}s {
+      {{ name }}s {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`;
+
+interface I{{ properCase name }} {
+  music: {
+    edges: {{ properCase name }}Connection;
+  };
+}
+
+describe('Error check {{ name }} queries', () => {
+  test('{{ name }}s should be defined', async () => {
+    const {{ name }}s = await client.request<I{{ properCase name }}>({{ constantCase name }}S_QUERY);
+    expect({{ name }}s).toBeDefined();
+  });
+});

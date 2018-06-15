@@ -1,0 +1,28 @@
+# import {{ properCase name }}, {{ properCase name }}Connection from "../../generated/prisma.graphql"
+
+
+# The "Query" type is the root of all GraphQL queries.
+type Query {
+  # {{ properCase name }}
+  {{ name }}s(first: Int, last: Int, before: ID, after: ID): {{ properCase name }}Connection
+  {{ name }}(id: ID!): {{ properCase name }}
+}
+
+type Mutation {
+    add{{ properCase name }}(input: Add{{ properCase name }}Input!): {{ properCase name }}
+    edit{{ properCase name }}(input: Edit{{ properCase name }}Input!): {{ properCase name }}
+    delete{{ properCase name }}(id: ID!): {{ properCase name }}
+}
+
+input Add{{ properCase name }}Input {
+    name: String!
+}
+
+input Edit{{ properCase name }}Input {
+    id: ID!
+    name: String!
+}
+
+type Subscription {
+    {{ name }}: [{{ properCase name }}]
+}

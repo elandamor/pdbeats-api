@@ -1,0 +1,10 @@
+{
+  "defaultSeverity": "error",
+  "extends": "tslint:recommended",
+  "jsRules": {},
+  "rules": {
+    "ordered-imports": [true, { "import-sources-order": "any" }],
+    "quotemark": [true, "single"],
+    "one-variable-per-declaration": false
+  }
+}
